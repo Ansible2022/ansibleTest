@@ -1,14 +1,11 @@
 ---
-- name: fetch module demo
-- hosts: all
-  become: false
-  vars:
-   myfile: "/home/server2/ansible/2.pdf"
+- hosts: "{{ target_host }}"
+  become: false 
 
   tasks:
-   - name: Download Fetch File
+   - name: Download Fetch Files
      fetch:
-       src: "{{ myfile }}"
-       dest: test/
+       src: "{{ source_file }}"
+       dest: "{{ dest_file }}"
        flat: yes
        
