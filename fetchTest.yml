@@ -1,6 +1,6 @@
 ---
 - hosts: "{{ target_host }}"
-  become: false 
+  become: yes 
 
   tasks:
    - name: Download Fetch Files
