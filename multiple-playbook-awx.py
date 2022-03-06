@@ -3,6 +3,7 @@ import json
 import base64
 import sys
 import time
+import datetime
 from threading import Thread
 
 
@@ -19,7 +20,7 @@ def encoding_string(msg):
 
 
 base64string = encoding_string(f'{username}:{password}')
-print(base64string)
+# print(base64string)
 
 
 def run_template(target_host, templateid, filename):
@@ -41,7 +42,7 @@ def run_template(target_host, templateid, filename):
 
     response = requests.post(url, headers=headers,
                              data=json.dumps(data), verify=False)
-    
+
     resp = json.loads(response.text)
     job_id = resp.get('id', '')
     print(f'Job id: {job_id}')
@@ -49,19 +50,19 @@ def run_template(target_host, templateid, filename):
 
 def template9():
     print("template-9(10MB.pdf) is running at time: " +
-          str(int(time.time())) + " seconds.")
+          str(datetime.datetime.now()))
     run_template("server2", 9, "10MB.pdf")
 
 
 def template10():
     print("template-10(20MB.zip) is running at time: " +
-          str(int(time.time())) + " seconds.")
+          str(datetime.datetime.now()))
     run_template("server2", 10, "20MB.zip")
 
 
 def template11():
     print("template-11(40MB.zip) is running at time: " +
-          str(int(time.time())) + " seconds.")
+          str(datetime.datetime.now()))
     run_template("server2", 11, "40MB.zip")
 
 
