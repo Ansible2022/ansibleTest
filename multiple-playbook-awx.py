@@ -4,6 +4,7 @@ import base64
 import sys
 import time
 from threading import Thread
+import datetime
 
 
 def encoding_string(msg):
@@ -15,12 +16,10 @@ def encoding_string(msg):
 
 username = 'admin'
 password = 'admin'
-awx_ip = '192.168.0.103'
-#templateid = sys.argv[1]
-
+awx_ip = '192.168.99.168'
 
 base64string = encoding_string(f'{username}:{password}')
-print(base64string)
+#print(base64string)
 
 headers = {
     'Authorization': "Basic " + base64string,
@@ -28,44 +27,42 @@ headers = {
 }
 
 
-
 def run_template(templateid):
 
     url = 'http://'+ awx_ip + '/api/v2/job_templates/'+ str(templateid) + '/launch/'
     #print(url)
 
-    # data = {
-    #     "extra_vars": {
-    #         "target_host": "server2",
-    #         "file_name": "text.txt",
-    #         "source_file": "/home/server2/sharefile/{{ file_name }}",
-    #         "dest_file": "/var/lib/awx/projects/{{ inventory_hostname }}/{{ file_name }}"
-    #     }
-    # }
+    data = {
+        "extra_vars": {
+            "target_host": "server2",
+        }
+    }
 
-    response = requests.post(url, headers=headers)
-    #print(response.text)
+    response = requests.post(url, headers=headers, data=json.dumps(data))
+    resp = json.loads(response.text)
+    job_id = resp.get('id','')
+    print(f'Template ID: {templateid}, Job ID: {job_id}')
 
 
-def template9():
-    print("template-9 is running at time: " + str(int(time.time())) + " seconds.")
-    run_template(9)
+def template15():
+    print("template-15(10MB) is running at time: " + str(datetime.datetime.now()))
+    run_template(15)
 
-def template10():
-    print("template-10 is running at time: " + str(int(time.time())) + " seconds.")
-    run_template(10)
+def template16():
+    print("template-16(20MB) is running at time: " + str(datetime.datetime.now()))
+    run_template(16)
 
-def template11():
-    print("template-11 is running at time: " + str(int(time.time())) + " seconds.")
-    run_template(11)
+def template17():
+    print("template-17(30MB) is running at time: " + str(datetime.datetime.now()))
+    run_template(17)
 
 
 if __name__ == '__main__':
-    template_9  = Thread(target = template9)
-    template_10 = Thread(target = template10)
-    template_11 = Thread(target = template11)
+    template_15 = Thread(target = template15)
+    template_16 = Thread(target = template16)
+    template_17 = Thread(target = template17)
 
-    template_9.start()
-    template_10.start()
-    template_11.start()
+    template_15.start()
+    template_16.start()
+    template_17.start()
 

@@ -1,0 +1,9 @@
+---
+- hosts: "{{ target_host }}"
+
+  tasks:
+   - name: Install the latest yum git example. 
+     yum:
+       name: git
+       state: latest
+       
