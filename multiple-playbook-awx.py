@@ -3,8 +3,14 @@ import json
 import base64
 import sys
 import time
+import datetime
 from threading import Thread
 import datetime
+
+
+username = 'admin'
+password = 'admin'
+awx_ip = '192.168.60.234'
 
 
 def encoding_string(msg):
@@ -29,8 +35,10 @@ headers = {
 
 def run_template(templateid):
 
-    url = 'http://'+ awx_ip + '/api/v2/job_templates/'+ str(templateid) + '/launch/'
-    #print(url)
+    headers = {
+        'Authorization': "Basic " + base64string,
+        'Content-Type': 'application/json'
+    }
 
     data = {
         "extra_vars": {
@@ -66,3 +74,6 @@ if __name__ == '__main__':
     template_16.start()
     template_17.start()
 
+
+if __name__ == '__main__':
+    main()
